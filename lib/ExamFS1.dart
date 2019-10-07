@@ -20,13 +20,18 @@ class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Text(
-              'name: ${doc.data['name']}',
-              style: TextStyle(fontSize: 24),
+              'Name: ${doc.data['Name']}',
+              style: TextStyle(fontSize: 25),
             ),
             Text(
-              'todo: ${doc.data['todo']}',
+              'Date: ${doc.data['Date']}',
+              style: TextStyle(fontSize: 15),
+            ),
+            Text(
+              'Description ${doc.data['Description']}',
               style: TextStyle(fontSize: 20),
             ),
+            Image.network(doc.data['Image ${doc.data['Image']}']),
             SizedBox(height: 12),
           ],
         ),
@@ -44,7 +49,7 @@ class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
         padding: EdgeInsets.all(8),
         children: <Widget>[
           StreamBuilder<QuerySnapshot>(
-            stream: db.collection('CRUD').snapshots(),
+            stream: db.collection('Events').snapshots(),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 id != null ? readData : null;
