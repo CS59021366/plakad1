@@ -112,7 +112,7 @@ class _HomeViKror extends State<vikror> {
     _values10.addAll(["0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20"]);
     _value10 = _values10.elementAt(0);
 
-    item = Item("", "", "", "", "", "", "", "", "", "");
+    item = Item(_value1, _value2, _value3, _value4, _value5, _value6, _value7, _value8, _value9, _value10);
     final FirebaseDatabase database = FirebaseDatabase.instance; //Rather then just writing FirebaseDatabase(), get the instance.
     itemRef = database.reference().child('items');
     itemRef.onChildAdded.listen(_onEntryAdded);
@@ -175,12 +175,6 @@ class _HomeViKror extends State<vikror> {
                         )
                     ),
                   ),
-//                  Flexible(
-//                    child: ZoomableImage(
-//                      NetworkImage('https://firebasestorage.googleapis.com/v0/b/what-64706.appspot.com/o/IMG_20190830_160526.jpg?alt=media&token=ea0e6436-f5ed-49a7-8f54-d648cb030328'),
-//                      placeholder:  const Center(child: const CircularProgressIndicator()),
-//                      backgroundColor: Colors.black87),
-//                  ),
                         Column(
                           children: <Widget>[
                             new Text('**ให้คะแนนความสวยงามปลากัด**',style: TextStyle(fontSize: 20,color: Colors.red),),
@@ -205,16 +199,6 @@ class _HomeViKror extends State<vikror> {
                                 ),
                               ],
                             ),
-
-//                            new Row(
-//                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-//                              children: <Widget>[
-//                                SizedBox(width: 30,height: 15, child: TextField(
-//                                  style: TextStyle(fontSize: 20),
-//                                ),),
-//                                new Text('/7 คะแนน',style: TextStyle(fontSize: 20,),),
-//                              ],
-//                            ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
@@ -501,19 +485,6 @@ class _HomeViKror extends State<vikror> {
                                     ),
                                   ),
                                 ),
-//                                Flexible(
-//                                  child: FirebaseAnimatedList(
-//                                    query: itemRef,
-//                                    itemBuilder: (BuildContext context, DataSnapshot snapshot,
-//                                        Animation<double> animation, int index) {
-//                                      return new ListTile(
-//                                        leading: Icon(Icons.message),
-//                                        title: Text(items[index].title),
-//                                        subtitle: Text(items[index].body),
-//                                      );
-//                                    },
-//                                  ),
-//                                ),
                               ],
                             ),
 
@@ -524,9 +495,11 @@ class _HomeViKror extends State<vikror> {
                                 RaisedButton(
                                   color: Colors.green,
                                   onPressed: (){
-                                    Navigator.push(context, MaterialPageRoute(
-                                        builder: (context) => HalSatu()
-                                    ));
+                                    FirebaseDatabase.instance.reference().
+                                    child("12").set({
+                                      'title': '$_value1',
+                                      'description': 'Programming Guide for J2EE'
+                                    },);
                                   },child: Text("ตกลง",style: TextStyle(color: Colors.black87, fontSize: 30.0),),),
 
 

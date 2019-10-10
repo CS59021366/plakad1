@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:what/Plawad.dart';
-import 'package:what/Punhar.dart';
-import 'package:what/SelectPlakad.dart';
-import 'package:what/classifier.dart';
+import 'package:what/ExamFS0.dart';
 import 'package:what/quiry.dart';
+
+import 'SelectPlakad.dart';
 
 void main(){
   runApp(new MaterialApp(
@@ -102,7 +101,7 @@ class Function2 extends StatelessWidget{ //class สร้างfunction
       child: GestureDetector(
         onTap: () {
           Navigator.push(context, MaterialPageRoute(
-              builder: (context) => Plawad()
+              builder: (context) => Home01()
           )); //MaterialPageRoute
         },
         child: new Column(
@@ -134,7 +133,7 @@ class Function3 extends StatelessWidget{ //class สร้างfunction
       child: GestureDetector(
         onTap: () {
           Navigator.push(context, MaterialPageRoute(
-              builder: (context) => Home()
+              builder: (context) => Examfs()
           )); //MaterialPageRoute
         },
         child: new Column(

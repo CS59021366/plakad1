@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
 
 class Database {
@@ -74,7 +75,20 @@ class Database {
 }
 
 Future<String> _getAccountKey() async {
-  return '12345678';
+
+  return '89465132';
+
+//    FutureBuilder<FirebaseUser>(
+//      future: FirebaseAuth.instance.currentUser(),
+//      builder: (BuildContext context, AsyncSnapshot<FirebaseUser> snapshot) {
+//        if (snapshot.connectionState == ConnectionState.done) {
+//          return new Text(snapshot.data.email);
+//        }
+//        else {
+//          return new Text('Loading...');
+//        }
+//      },
+//    );
 }
 
 /// requires: intl: ^0.15.2

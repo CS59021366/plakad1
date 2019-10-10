@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:what/main.dart';
 
 class FirestoreCRUDPage extends StatefulWidget {
   @override
@@ -19,19 +20,20 @@ class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
+            Image.network('${doc.data['imageUrl']}',width: 300.0,height: 300.0,),
             Text(
-              'Name: ${doc.data['Name']}',
+              'ชื่อกิจกรรม: ${doc.data['Name']}',
               style: TextStyle(fontSize: 25),
             ),
             Text(
-              'Date: ${doc.data['Date']}',
+              'เวลาเริ่มต้น/สิ้นสุด: ${doc.data['Date']}',
               style: TextStyle(fontSize: 15),
             ),
             Text(
-              'Description ${doc.data['Description']}',
+              'รายละเอียด: ${doc.data['Description']}',
               style: TextStyle(fontSize: 20),
             ),
-            Image.network(doc.data['Image ${doc.data['Image']}']),
+
             SizedBox(height: 12),
           ],
         ),
@@ -43,6 +45,11 @@ class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(icon: Icon(Icons.subdirectory_arrow_left), onPressed: (){
+          Navigator.push(context, MaterialPageRoute(
+              builder: (context) => HalSatu()
+          ));
+        }),
         title: Text('กิจกรรมแข่งขันปลากัด'),
       ),
       body: ListView(

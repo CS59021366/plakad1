@@ -1,8 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
-// import 'package:firebase_core/firebase_core.dart'; not nessecary
 
 
 
@@ -15,20 +14,21 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData.dark(),
-      home: Home(),
+      home: Home01(),
     );
   }
 }
 
-class Home extends StatefulWidget {
+class Home01 extends StatefulWidget {
   @override
   HomeState createState() => HomeState();
 }
 
-class HomeState extends State<Home> {
+class HomeState extends State<Home01> {
   List<Item> items = List();
   Item item;
   DatabaseReference itemRef;
+  String _userId;
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
@@ -37,7 +37,8 @@ class HomeState extends State<Home> {
     super.initState();
     item = Item("", "");
     final FirebaseDatabase database = FirebaseDatabase.instance; //Rather then just writing FirebaseDatabase(), get the instance.
-    itemRef = database.reference().child('items');
+    itemRef = database.reference().child('ปลากัดที่ส่งให้ผู้เชี่ยวชาญวิเคราะห์').
+    child('lglBqlrKhXWPo7uGoUqsK3kWQF83').reference();
     itemRef.onChildAdded.listen(_onEntryAdded);
     itemRef.onChildChanged.listen(_onEntryChanged);
   }
@@ -61,63 +62,28 @@ class HomeState extends State<Home> {
     final FormState form = formKey.currentState;
 
     if (form.validate()) {
-      form.save();
-      form.reset();
       itemRef.push().set(item.toJson());
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    FirebaseAuth.instance.currentUser().then((user) {
+      _userId = user.uid;
+    });
     return Scaffold(
       appBar: AppBar(
-        title: Text('FB example'),
+        title: Text('$_userId'),
       ),
       resizeToAvoidBottomPadding: false,
       body: Column(
         children: <Widget>[
-          Flexible(
-            flex: 0,
-            child: Center(
-              child: Form(
-                key: formKey,
-                child: Flex(
-                  direction: Axis.vertical,
-                  children: <Widget>[
-                    ListTile(
-                      leading: Icon(Icons.info),
-                      title: TextFormField(
-                        initialValue: "",
-                        onSaved: (val) => item.title = val,
-                        validator: (val) => val == "" ? val : null,
-                      ),
-                    ),
-                    ListTile(
-                      leading: Icon(Icons.info),
-                      title: TextFormField(
-                        initialValue: '',
-                        onSaved: (val) => item.body = val,
-                        validator: (val) => val == "" ? val : null,
-                      ),
-                    ),
-                    IconButton(
-                      icon: Icon(Icons.send),
-                      onPressed: () {
-                        handleSubmit();
-                      },
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
           Flexible(
             child: FirebaseAnimatedList(
               query: itemRef,
               itemBuilder: (BuildContext context, DataSnapshot snapshot,
                   Animation<double> animation, int index) {
                 return new ListTile(
-                  leading: Icon(Icons.message),
                   title: Text(items[index].title),
                   subtitle: Text(items[index].body),
                 );
@@ -139,13 +105,13 @@ class Item {
 
   Item.fromSnapshot(DataSnapshot snapshot)
       : key = snapshot.key,
-        title = snapshot.value["title"],
-        body = snapshot.value["body"];
+        title = snapshot.value["ชนิดสี"],
+        body = snapshot.value["ชนิดครีบ"];
 
   toJson() {
     return {
-      "title": title,
-      "body": body,
+      "ชนิดสี": title,
+      "ชนิดครีบ": body,
     };
   }
 }
