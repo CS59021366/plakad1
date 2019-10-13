@@ -6,6 +6,8 @@ import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:intl/intl.dart';
 import 'package:what/main.dart';
 
+import 'Home.dart';
+
 
 
 void main() => runApp(Select());
@@ -49,12 +51,12 @@ class HomeState extends State<_Select> {
   List<String> _values9 = new List<String>();
   String _value10 = null;
   List<String> _values10 = new List<String>();
+  String _UserId;
 
 
   List<Item> items = List();
   Item item;
   DatabaseReference itemRef;
-  String getUID;
   FirebaseUser currentUser;
   DatabaseReference watchRef;
 
@@ -114,6 +116,9 @@ class HomeState extends State<_Select> {
 
   @override
   Widget build(BuildContext context) {
+    FirebaseAuth.instance.currentUser().then((user) {
+      _UserId = user.uid;
+    });
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(icon: Icon(Icons.subdirectory_arrow_left), onPressed: (){
@@ -152,7 +157,7 @@ class HomeState extends State<_Select> {
                       ],
                     ),
                     ExpansionTile(
-                      backgroundColor: Colors.black54,
+                      backgroundColor: Colors.black26,
                       trailing: Icon(Icons.search),
                       title: Text(items[index].NAME),
                       children: <Widget>[
@@ -386,15 +391,15 @@ class HomeState extends State<_Select> {
                                 Navigator.push(context, MaterialPageRoute(
                                     builder: (context) => HalSatu()
                                 ));
-                                FirebaseDatabase.instance.reference().child('UserHistory').
+                                FirebaseDatabase.instance.reference().child('UserHistory').  //ส่งคืนไปยัง User ที่ส่งมาให้วิเคราะห์
                                 child(items[index]._userId).child(_getDateNow()).set({
                                   'Url_Picture':(items[index].Picture),
-                                  'เวลาที่ทำการวิเคราะห์':(items[index].Date),
-                                  'ชนิดครีบ':(items[index].Detail1),
-                                  'ชนิดหาง':(items[index].Detail2),
-                                  'ชนิดสี':(items[index].Detail3),
-                                  'ช่วงอายุ':(items[index].Detail4),
-                                  'ชื่อปลากัด':(items[index].NAME),
+                                  'Date':(items[index].Date),
+                                  'Detail1':(items[index].Detail1),
+                                  'Detail2':(items[index].Detail2),
+                                  'Detail3':(items[index].Detail3),
+                                  'Age':(items[index].Detail4),
+                                  'Neme':(items[index].NAME),
                                   'ตาและหัว': '$_value1',
                                   'ลำตัวและเกร็ด': '$_value2',
                                   'ครีบหลัง' : '$_value3',
@@ -406,6 +411,28 @@ class HomeState extends State<_Select> {
                                   'การพองสู้' : '$_value9',
                                   'ภาพรวม' : '$_value10',
                                 },);
+
+                                FirebaseDatabase.instance.reference().child('ExpertHistory'). //ส่งเข้า History ของตัวเอง
+                                child('$_UserId').child(_getDateNow()).set({
+                                  'Url_Picture':(items[index].Picture),
+                                  'Date':(items[index].Date),
+                                  'Detail1':(items[index].Detail1),
+                                  'Detail2':(items[index].Detail2),
+                                  'Detail3':(items[index].Detail3),
+                                  'Age':(items[index].Detail4),
+                                  'Neme':(items[index].NAME),
+                                  'ตาและหัว': '$_value1',
+                                  'ลำตัวและเกร็ด': '$_value2',
+                                  'ครีบหลัง' : '$_value3',
+                                  'ครีบหาง' : '$_value4',
+                                  'ครับก้น' : '$_value5',
+                                  'ครีบอื่นๆ' : '$_value6',
+                                  'สีและลวดลาย' : '$_value7',
+                                  'การทรงตัว' : '$_value8',
+                                  'การพองสู้' : '$_value9',
+                                  'ภาพรวม' : '$_value10',
+                                },);
+
                               },child: Text("ให้คะแนน",style: TextStyle(color: Colors.white70),),),
                           ],
                         ),
@@ -438,23 +465,23 @@ class Item {
   Item.fromSnapshot(DataSnapshot snapshot)
       : key = snapshot.key,
         Picture = snapshot.value["Url_Picture"],
-        Detail1 = snapshot.value["ชนิดครีบ"],
-        Detail2 = snapshot.value["ชนิดหาง"],
-        Detail3 = snapshot.value["ชนิดสี"],
-        Detail4 = snapshot.value["ช่วงอายุ"],
-        Date = snapshot.value["เวลาที่ทำการวิเคราะห์"],
+        Detail1 = snapshot.value["Detail1"],
+        Detail2 = snapshot.value["Detail2"],
+        Detail3 = snapshot.value["Detail3"],
+        Detail4 = snapshot.value["Age"],
+        Date = snapshot.value["Date"],
         _userId = snapshot.value["UID"],
-        NAME = snapshot.value["ชื่อปลากัด"];
+        NAME = snapshot.value["Neme"];
 
   toJson() {
     return {
       "Url_Picture": Picture,
-      "ชนิดครีบ": Detail1,
-      "ชนิดหาง": Detail2,
-      "ชนิดสี": Detail3,
-      "ช่วงอายุ": Detail4,
-      "เวลาที่ทำการวิเคราะห์": Date,
-      "ชื่อปลากัด": NAME,
+      "Detail1": Detail1,
+      "Detail2": Detail2,
+      "Detail3": Detail3,
+      "Age": Detail4,
+      "Date": Date,
+      "Neme": NAME,
       "UID": _userId,
     };
   }

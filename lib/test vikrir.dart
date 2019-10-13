@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:what/main.dart';
 
+import 'Home.dart';
+
 void main() {
   runApp(new MaterialApp(
     title: "Camera App",
