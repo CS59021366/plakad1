@@ -1,9 +1,8 @@
 import 'package:firebase_database/firebase_database.dart';
-import 'package:firebase_database/ui/firebase_animated_list.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import 'database.dart';
-import 'edit_mountain.dart';
+import 'package:intl/intl.dart';
+import 'package:what/Home.dart';
 void main(){
   runApp(new MaterialApp(
     title: "Camera App",
@@ -11,104 +10,105 @@ void main(){
   ));
 }
 
-class Punhar extends StatelessWidget {
+class Punhar extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return new MaterialApp(
-      title: 'Flutter Demo',
-      theme: new ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: new MyHomePage(),
-      routes: <String, WidgetBuilder>{
-        EditMountianPage.routeName: (context) => new EditMountianPage(),
-      },
-    );
-  }
+  _HomePunhar createState() => _HomePunhar();
 }
 
-class MyHomePage extends StatefulWidget {
-  @override
-  _MyHomePageState createState() => new _MyHomePageState();
-}
 
-class _MyHomePageState extends State<MyHomePage> {
-  Query _query;
+class _HomePunhar extends State<Punhar> {
+
+  String _value0 = null;
+  List<String> _values0 = new List<String>();
+
+  String _text = '';
 
   @override
+
   void initState() {
-    Database.queryMountains().then((Query query) {
-      setState(() {
-        _query = query;
-      });
+    _values0.addAll(["ส่งผลการวิเคราะห์ไม่ได้", "ผลวิเคราะห์ไม่พบในประวัติ","ไม่สามารถให้คะแนนได้", 'อื่นๆ']);
+    _value0 = _values0.elementAt(0);
+  }
+  void onpressed(){
+    new Text('The text is : ${_text}');
+  }
+  void onChanged(String value){
+    setState(() {
+      _text = value;
     });
-
-    super.initState();
   }
 
-  @override
   Widget build(BuildContext context) {
-    Widget body = new ListView(
-      children: <Widget>[
-        new ListTile(
-          title: new Text("The list is empty..."),
-        )
-      ],
-    );
-
-    if (_query != null) {
-      body = new FirebaseAnimatedList(
-        query: _query,
-        itemBuilder: (
-            BuildContext context,
-            DataSnapshot snapshot,
-            Animation<double> animation,
-            int index,
-            ) {
-          String mountainKey = snapshot.key;
-          Map map = snapshot.value;
-          String name = map['name'] as String;
-          return new Column(
-            children: <Widget>[
-              new ListTile(
-                title: new Text('$name'),
-                onTap: () {
-                  _edit(mountainKey);
-                },
-              ),
-              new Divider(
-                height: 2.0,
-              ),
-            ],
-          );
-        },
-      );
-    }
-
-    return new Scaffold(
-      appBar: new AppBar(
-        title: new Text("Home"),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("รายงานปัญหา"),
       ),
-      body: body,
-      floatingActionButton: new FloatingActionButton(
-        child: new Icon(Icons.add),
-        onPressed: () {
-          _createMountain();   //++++++++++++
-        },
+      body: ListView(
+        children: <Widget>[
+          Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: <Widget>[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text('ชนิดปัญหาที่พบ  :  ',style: TextStyle(fontSize: 15.0),),
+                    DropdownButton<String>(
+                      items: _values0.map<DropdownMenuItem<String>>((String value1){
+                        return DropdownMenuItem<String>(
+                          value: value1,
+                          child: Text(value1),
+                        );
+                      }).toList(),
+                      onChanged: (String newValueone){
+                        setState(() {
+                          this._value0 = newValueone;
+                        });
+                      },
+                      value: _value0,
+                    ),
+                  ],
+                ),
+
+                new SizedBox(
+                  child: new TextField(
+                    maxLines: 20,
+                    onChanged:(String value){onChanged(value);},
+                    decoration: new InputDecoration(
+                        hintText: 'ใส่ปัญหาเพื่มเติมที่นี้',
+                        labelText: 'รายละเอีนดปัญหา',
+                        border:  new OutlineInputBorder(
+                          borderRadius: new BorderRadius.circular(25.0),
+                        )
+                    ),
+                  ),
+                ),
+
+
+                RaisedButton(
+                  color: Colors.black87,
+                  onPressed: (){
+                    FirebaseDatabase.instance.reference().child('ReportFromExpert').
+                    child(_getDateNow()).set({
+                      'Header': '$_value0',
+                      'Detail': '$_text',
+                    },);
+
+                    Navigator.push(context, MaterialPageRoute(
+                        builder: (context) => HalSatu()
+                    ));
+                  },child: Text("ส่งรายงายปัญหา",style: TextStyle(color: Colors.white70),),)
+              ],
+            ),
+          ),
+        ],
+
       ),
     );
   }
-
-  void _createMountain() {
-    Database.createMountain().then((String mountainKey) {
-      _edit(mountainKey);
-    });
-  }
-
-  void _edit(String mountainKey) {
-    var route = new MaterialPageRoute(
-      builder: (context) => new EditMountianPage(mountainKey: mountainKey),
-    );
-    Navigator.of(context).push(route);
-  }
+}
+String _getDateNow() {
+  var now = new DateTime.now();
+  var formatter = new DateFormat('yyyy-MM-dd HH:mm:ss');
+  return formatter.format(now);
 }

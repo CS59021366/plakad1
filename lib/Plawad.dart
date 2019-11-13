@@ -36,12 +36,29 @@ class HomeState extends State<Plawad> {
   @override
   void initState() {
     super.initState();
-    item = Item("", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "");
+    item = Item(
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "");
     _initDB();
-
   }
 
-  void _initDB() async{
+  void _initDB() async {
     final FirebaseDatabase database = FirebaseDatabase.instance;
     final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
     currentUser = await firebaseAuth.currentUser();
@@ -68,6 +85,7 @@ class HomeState extends State<Plawad> {
 
   @override
   Widget build(BuildContext context) {
+    if (itemRef == null){return Text('No Data............',style: TextStyle(fontSize: 40.0,color: Colors.white),);}else{
     return Scaffold(
       appBar: AppBar(
         title: Text('ประวัติการให้คะแนน'),
@@ -88,7 +106,8 @@ class HomeState extends State<Plawad> {
                       children: <Widget>[
                         Column(
                           children: <Widget>[
-                            Image.network(items[index].Picture,width: 300.0,height: 200.0,),
+                            Image.network(items[index].Picture, width: 300.0,
+                              height: 200.0,),
                             SizedBox(height: 10.0),
                           ],
                         ),
@@ -96,6 +115,7 @@ class HomeState extends State<Plawad> {
                           children: <Widget>[
                             Text(items[index].NAME),
                             Text(items[index].Date),
+                            Text(items[index].EndDate),
                             Text(items[index].Detail1),
                             Text(items[index].Detail2),
                             Text(items[index].Detail3),
@@ -114,7 +134,8 @@ class HomeState extends State<Plawad> {
                             children: <Widget>[
                               Column(
                                 children: <Widget>[
-                                  new Text('       สัดส่วนของปลากัด       ',style: TextStyle(fontSize: 16.0),),
+                                  new Text('       สัดส่วนของปลากัด       ',
+                                    style: TextStyle(fontSize: 16.0),),
                                   new Text('หัวและตา'),
                                   new Text('ลำตัวและเกร็ด'),
                                   new Text('ครับหลัง'),
@@ -128,19 +149,31 @@ class HomeState extends State<Plawad> {
                                 ],
                               ),
                               Column(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment: MainAxisAlignment
+                                    .spaceBetween,
                                 children: <Widget>[
-                                  new Text('       ระบบวิเคราะห์       ',style: TextStyle(fontSize: 16.0),),
-                                  Text(items[index].value1,style: TextStyle(fontSize: 16.0),),
-                                  Text(items[index].value2,style: TextStyle(fontSize: 16.0),),
-                                  Text(items[index].value3,style: TextStyle(fontSize: 16.0),),
-                                  Text(items[index].value4,style: TextStyle(fontSize: 16.0),),
-                                  Text(items[index].value5,style: TextStyle(fontSize: 16.0),),
-                                  Text(items[index].value6,style: TextStyle(fontSize: 16.0),),
-                                  Text(items[index].value7,style: TextStyle(fontSize: 16.0),),
-                                  Text(items[index].value8,style: TextStyle(fontSize: 16.0),),
-                                  Text(items[index].value9,style: TextStyle(fontSize: 16.0),),
-                                  Text(items[index].value10,style: TextStyle(fontSize: 16.0),),
+                                  new Text('       ระบบวิเคราะห์       ',
+                                    style: TextStyle(fontSize: 16.0),),
+                                  Text(items[index].value1,
+                                    style: TextStyle(fontSize: 16.0),),
+                                  Text(items[index].value2,
+                                    style: TextStyle(fontSize: 16.0),),
+                                  Text(items[index].value3,
+                                    style: TextStyle(fontSize: 16.0),),
+                                  Text(items[index].value4,
+                                    style: TextStyle(fontSize: 16.0),),
+                                  Text(items[index].value5,
+                                    style: TextStyle(fontSize: 16.0),),
+                                  Text(items[index].value6,
+                                    style: TextStyle(fontSize: 16.0),),
+                                  Text(items[index].value7,
+                                    style: TextStyle(fontSize: 16.0),),
+                                  Text(items[index].value8,
+                                    style: TextStyle(fontSize: 16.0),),
+                                  Text(items[index].value9,
+                                    style: TextStyle(fontSize: 16.0),),
+                                  Text(items[index].value10,
+                                    style: TextStyle(fontSize: 16.0),),
                                 ],
                               )
                             ],
@@ -158,6 +191,7 @@ class HomeState extends State<Plawad> {
     );
   }
 }
+}
 
 class Item {
   String key;
@@ -167,6 +201,7 @@ class Item {
   String Detail3;
   String Detail4;
   String Date;
+  String EndDate;
   String NAME;
   String value1;
   String value2;
@@ -179,7 +214,7 @@ class Item {
   String value9;
   String value10;
 
-  Item(this.Picture, this.Detail1, this.Detail2, this.Detail3, this.Detail4, this.Date, this.NAME,
+  Item(this.Picture, this.Detail1, this.Detail2, this.Detail3, this.Detail4, this.Date, this.EndDate, this.NAME,
       this.value1, this.value2, this.value3, this.value4, this.value5, this.value6, this.value7,
       this.value8, this.value9, this.value10);
 
@@ -191,6 +226,7 @@ class Item {
         Detail3 = snapshot.value["Detail3"],
         Detail4 = snapshot.value["Age"],
         Date = snapshot.value["Date"],
+        EndDate = snapshot.value["EndDate"],
         NAME = snapshot.value["Neme"],
         value1 = snapshot.value["ตาและหัว"],
         value2 = snapshot.value["ลำตัวและเกร็ด"],
@@ -211,6 +247,7 @@ class Item {
       "Detail3": Detail3,
       "Age": Detail4,
       "Date": Date,
+      "EndDate": EndDate,
       "Neme": NAME,
       'ตาและหัว': value1,
       'ลำตัวและเกร็ด': value2,

@@ -32,7 +32,7 @@ class _LoginPageV2State extends State<LoginPageV2> {
                       alignment: Alignment.center,
                       height: 37.0,
                       decoration: new BoxDecoration(
-                          color: Colors.blueAccent,borderRadius: new BorderRadius.circular(30.0)
+                          color: Colors.deepOrange,borderRadius: new BorderRadius.circular(30.0)
                       ),
                       child: new Text("Sign In Account",style: new TextStyle(fontSize: 25.0,color: Colors.black),),
                     ),//Container
@@ -91,7 +91,7 @@ class _LoginPageV2State extends State<LoginPageV2> {
                     child: Container(
                       child: RaisedButton(
                         onPressed: signIn,
-                        color: Colors.lightBlueAccent,
+                        color: Colors.orangeAccent,
                         child: Text('Sign in',style: TextStyle(fontSize: 40),),
                       ),//Container
                     ),//RaisedButton
@@ -102,24 +102,24 @@ class _LoginPageV2State extends State<LoginPageV2> {
             SizedBox(
               height: 10,
             ),
-            Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 18.0),
-                    child: GestureDetector(
-                      onTap: () {
-                        Navigator.push(context, MaterialPageRoute(
-                            builder: (context) => SignUp()));
-                      },//onTap
-                      child: new Text("Create A New Account",style: new TextStyle(
-                          fontSize: 20.0, color: Colors.red)),
-                    ),//GestureDetector
-                  ),//Padding
-                ],//<Widget>[]
-              ),//Column
-            )
+//            Expanded(
+//              child: Column(
+//                mainAxisAlignment: MainAxisAlignment.end,
+//                children: <Widget>[
+//                  Padding(
+//                    padding: const EdgeInsets.only(bottom: 18.0),
+//                    child: GestureDetector(
+//                      onTap: () {
+//                        Navigator.push(context, MaterialPageRoute(
+//                            builder: (context) => SignUp()));
+//                      },//onTap
+//                      child: new Text("Create A New Account",style: new TextStyle(
+//                          fontSize: 20.0, color: Colors.red)),
+//                    ),//GestureDetector
+//                  ),//Padding
+//                ],//<Widget>[]
+//              ),//Column
+//            )
           ],//<Widget>[]
         ),//Column
       ),//Container

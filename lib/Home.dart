@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:what/ExamFS0.dart';
 import 'package:what/Plawad.dart';
 import 'package:what/ProFile.dart';
-import 'package:what/quiry.dart';
-
+import 'Punhar.dart';
 import 'SelectPlakad.dart';
 
 void main(){
@@ -11,7 +10,7 @@ void main(){
       title : "Analysis Fish Fighting",
       home : new HalSatu(),
       theme: new ThemeData(
-          primarySwatch: Colors.blueGrey//สีหัวข้อผ
+          primarySwatch: Colors.deepOrange//สีหัวข้อผ
       )
   ));
 }
@@ -20,7 +19,7 @@ class HalSatu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      backgroundColor: Colors.black87, //สัพื้นหลังของแอป
+      backgroundColor: Color(910000), //สัพื้นหลังของแอป
       appBar: new AppBar(
         title: new Center(child: new Text('Menu',textAlign: TextAlign.center,style: TextStyle(fontSize: 50),)),
         leading: IconButton(icon: Icon(Icons.notifications), onPressed: (){
@@ -139,7 +138,7 @@ class Function3 extends StatelessWidget{ //class สร้างfunction
       child: GestureDetector(
         onTap: () {
           Navigator.push(context, MaterialPageRoute(
-              builder: (context) => Examfs()
+              builder: (context) => Punhar()
           )); //MaterialPageRoute
         },
         child: new Column(

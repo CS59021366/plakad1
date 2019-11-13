@@ -4,10 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:intl/intl.dart';
-import 'package:what/main.dart';
-
 import 'Home.dart';
-
 
 
 void main() => runApp(Select());
@@ -119,6 +116,7 @@ class HomeState extends State<_Select> {
     FirebaseAuth.instance.currentUser().then((user) {
       _UserId = user.uid;
     });
+    if (itemRef == null){return Text('No Data............',style: TextStyle(fontSize: 40.0,color: Colors.white),);}else{
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(icon: Icon(Icons.subdirectory_arrow_left), onPressed: (){
@@ -135,6 +133,7 @@ class HomeState extends State<_Select> {
               query: itemRef,
               itemBuilder: (BuildContext context, DataSnapshot snapshot,
                   Animation<double> animation, int index) {
+
                 return new Column(
                   children: <Widget>[
                     Row(
@@ -157,13 +156,13 @@ class HomeState extends State<_Select> {
                       ],
                     ),
                     ExpansionTile(
-                      backgroundColor: Colors.black26,
+                      backgroundColor: Colors.white24,
                       trailing: Icon(Icons.search),
                       title: Text(items[index].NAME),
                       children: <Widget>[
                         new Column(
                             children: <Widget>[
-                            new Text('**ให้คะแนนความสวยงามปลากัด**',style: TextStyle(fontSize: 20,color: Colors.red),),
+                            new Text('**ให้คะแนนความสวยงามปลากัด**',style: TextStyle(fontSize: 20,color: Colors.white),),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
@@ -177,7 +176,7 @@ class HomeState extends State<_Select> {
                                             items: _values1.map<DropdownMenuItem<String>>((String value1){
                                               return DropdownMenuItem<String>(
                                                 value: value1,
-                                                child: Text(value1,style: TextStyle(color: Colors.black87),),
+                                                child: Text(value1,style: TextStyle(color: Colors.white),),
                                               );
                                             }).toList(),
                                             onChanged: (String newValueone){
@@ -197,7 +196,7 @@ class HomeState extends State<_Select> {
                                             items: _values2.map<DropdownMenuItem<String>>((String value2){
                                               return DropdownMenuItem<String>(
                                                 value: value2,
-                                                child: Text(value2,style: TextStyle(color: Colors.black87),),
+                                                child: Text(value2,style: TextStyle(color: Colors.white),),
                                               );
                                             }).toList(),
                                             onChanged: (String newValuetwo){
@@ -218,7 +217,7 @@ class HomeState extends State<_Select> {
                                             items: _values3.map<DropdownMenuItem<String>>((String value3){
                                               return DropdownMenuItem<String>(
                                                 value: value3,
-                                                child: Text(value3,style: TextStyle(color: Colors.black87),),
+                                                child: Text(value3,style: TextStyle(color: Colors.white),),
                                               );
                                             }).toList(),
                                             onChanged: (String newValuethree){
@@ -239,7 +238,7 @@ class HomeState extends State<_Select> {
                                             items: _values4.map<DropdownMenuItem<String>>((String value4){
                                               return DropdownMenuItem<String>(
                                                 value: value4,
-                                                child: Text(value4,style: TextStyle(color: Colors.black87),),
+                                                child: Text(value4,style: TextStyle(color: Colors.white),),
                                               );
                                             }).toList(),
                                             onChanged: (String newValuefour){
@@ -260,7 +259,7 @@ class HomeState extends State<_Select> {
                                             items: _values5.map<DropdownMenuItem<String>>((String value5){
                                               return DropdownMenuItem<String>(
                                                 value: value5,
-                                                child: Text(' :  ${value5}',style: TextStyle(color: Colors.black87),),
+                                                child: Text(' :  ${value5}',style: TextStyle(color: Colors.white),),
                                               );
                                             }).toList(),
                                             onChanged: (String newValuefive){
@@ -284,7 +283,7 @@ class HomeState extends State<_Select> {
                                             items: _values6.map<DropdownMenuItem<String>>((String value6){
                                               return DropdownMenuItem<String>(
                                                 value: value6,
-                                                child: Text(value6,style: TextStyle(color: Colors.black87),),
+                                                child: Text(value6,style: TextStyle(color: Colors.white),),
                                               );
                                             }).toList(),
                                             onChanged: (String newValuesix){
@@ -305,7 +304,7 @@ class HomeState extends State<_Select> {
                                             items: _values7.map<DropdownMenuItem<String>>((String value7){
                                               return DropdownMenuItem<String>(
                                                 value: value7,
-                                                child: Text(value7,style: TextStyle(color: Colors.black87),),
+                                                child: Text(value7,style: TextStyle(color: Colors.white),),
                                               );
                                             }).toList(),
                                             onChanged: (String newValueseven){
@@ -326,7 +325,7 @@ class HomeState extends State<_Select> {
                                             items: _values8.map<DropdownMenuItem<String>>((String value8){
                                               return DropdownMenuItem<String>(
                                                 value: value8,
-                                                child: Text(value8,style: TextStyle(color: Colors.black87),),
+                                                child: Text(value8,style: TextStyle(color: Colors.white),),
                                               );
                                             }).toList(),
                                             onChanged: (String newValueeight){
@@ -347,7 +346,7 @@ class HomeState extends State<_Select> {
                                             items: _values9.map<DropdownMenuItem<String>>((String value9){
                                               return DropdownMenuItem<String>(
                                                 value: value9,
-                                                child: Text(value9,style: TextStyle(color: Colors.black87),),
+                                                child: Text(value9,style: TextStyle(color: Colors.white),),
                                               );
                                             }).toList(),
                                             onChanged: (String newValuenine){
@@ -368,7 +367,7 @@ class HomeState extends State<_Select> {
                                             items: _values10.map<DropdownMenuItem<String>>((String value10){
                                               return DropdownMenuItem<String>(
                                                 value: value10,
-                                                child: Text(value10,style: TextStyle(color: Colors.black87),),
+                                                child: Text(value10,style: TextStyle(color: Colors.white),),
                                               );
                                             },).toList(),
                                             onChanged: (String newValueten){
@@ -395,6 +394,7 @@ class HomeState extends State<_Select> {
                                 child(items[index]._userId).child(_getDateNow()).set({
                                   'Url_Picture':(items[index].Picture),
                                   'Date':(items[index].Date),
+                                  'EndDate': (_getDateNow()),
                                   'Detail1':(items[index].Detail1),
                                   'Detail2':(items[index].Detail2),
                                   'Detail3':(items[index].Detail3),
@@ -416,6 +416,7 @@ class HomeState extends State<_Select> {
                                 child('$_UserId').child(_getDateNow()).set({
                                   'Url_Picture':(items[index].Picture),
                                   'Date':(items[index].Date),
+                                  'EndDate': (_getDateNow()),
                                   'Detail1':(items[index].Detail1),
                                   'Detail2':(items[index].Detail2),
                                   'Detail3':(items[index].Detail3),
@@ -433,7 +434,9 @@ class HomeState extends State<_Select> {
                                   'ภาพรวม' : '$_value10',
                                 },);
 
-                              },child: Text("ให้คะแนน",style: TextStyle(color: Colors.white70),),),
+//                                _deleteNote(context, index);
+
+                              },child: Text("ส่งผลคะแนนวิเคราะห์",style: TextStyle(color: Colors.white70),),),
                           ],
                         ),
                       ],
@@ -445,9 +448,17 @@ class HomeState extends State<_Select> {
           ),
         ],
       ),
-    );
+    );}
   }
+//  void _deleteNote(BuildContext context, int index) async {
+//    await FirebaseDatabase.instance.reference().child('SentFish').remove().then((_) {
+//      setState(() {
+//        items.removeAt(index);
+//      });
+//    });
+//  }
 }
+
 
 class Item {
   String key;
@@ -489,6 +500,6 @@ class Item {
 
 String _getDateNow() {
   var now = new DateTime.now();
-  var formatter = new DateFormat('yyyy-MM-dd HH:mm:ss');
+  var formatter = new DateFormat('HH:mm:ss dd-MM-yyyy');
   return formatter.format(now);
 }
